@@ -1,65 +1,43 @@
+import 'package:youtube_app3/main_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(App());
-}
+void main() => runApp(MyApp());
 
-class App extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.white),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          leading: Icon(Icons.videocam),
-          title: const Text('zaki　アプリ1'),
-          actions: <Widget>[
-            SizedBox(
-              width: 44,
-              child: FlatButton(
-                child: Icon(Icons.search),
-                onPressed: (){
-                  //todo
-                },
-              ),
-            ),
-            SizedBox(
-              width: 44,
-              child: FlatButton(
-                child: Icon(Icons.more_vert),
-                onPressed: (){
-                  //todo
-                },
-              ),
-            ),
-          ],
-        ),
-        body: Container(
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 56,
-                    //height: 56,
-                    child: Image.network(
-                      'https://www.google.co.jp/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      title: 'Flutter Demo',
+      home: ChangeNotifierProvider<MainModel>(
+        create: (_) => MainModel(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('コリアンダー'),
+          ),
+          body: Consumer<MainModel>(builder: (context, model, child) {
+            return Center(
+              child: Column(
+                children: [
+                  Text(
+                    model.kboyText,
+                    style: TextStyle(
+                      fontSize: 30,
                     ),
                   ),
-                  Column(
-                    children: <Widget>[
-                      const Text('google'),
-                      const Text('検索一覧'),
-                    ],
+                  RaisedButton(
+                    child: Text('ボタン'),
+                    onPressed: () {
+                      // ここでなにか
+                      model.changeKboyText();
+                    },
                   ),
                 ],
               ),
-            ],
-          ),
+            );
+          }),
         ),
       ),
     );
   }
 }
-
